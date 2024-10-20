@@ -31,7 +31,6 @@ def construct_simplex_table(c, A, b, f):
     table.append([f] + c)
     return table
 
-
 def format_header_value(value):
     return " ".join(str(v) for v in value) if isinstance(value, list) else str(value)
 
@@ -40,15 +39,14 @@ def display_simplex_table(simplex_table):
     formatted_columns = [format_header_value(col) for col in columns]
     formatted_rows = [format_header_value(row) for row in rows]
     max_width = max(len(str(float(j))) for row in simplex_table for j in row if isinstance(j, (int, float))) + 2
-    full_headers = [""] + formatted_columns
+    full_headers = [""] + formatted_columns  # Добавляем 'b' перед заголовками столбцов
     print(" | ".join(f"{header:>{max_width}}" for header in full_headers))
     print("-" * (max_width * len(full_headers) + 3 * (len(full_headers) - 1)))
     for i, row in enumerate(simplex_table):
-        row_values = [formatted_rows[i]] + list(row)
+        row_values = [formatted_rows[i]] + list(row)  # Добавляем заголовок для строки 'b'
         print(" | ".join(
             f"{float(j):>{max_width}.2f}" if isinstance(j, (int, float)) else str(j).ljust(max_width) for j in
             row_values))
-
 
 def locate_resolving_element(c, A, b):
     if not check_solution_existence(c, A, b):
@@ -115,7 +113,9 @@ def perform_simplex_iteration(c, A, b, f, res_el):
             new_A[i][j] = A[i][j] - ((A[i][res_el[2]] * A[res_el[1]][j]) / res_el[0])
 
     new_f = f - ((c[res_el[2]] * b[res_el[1]]) / res_el[0])
-    columns[res_el[1]], rows[res_el[2]] = rows[res_el[2]], columns[res_el[1]]
+    temp_row = rows[res_el[1]]
+    rows[res_el[1]] = columns[1+res_el[2]]
+    columns[1+res_el[2]] = temp_row
     return new_c, new_A, new_b, new_f
 
 def execute_simplex(c, A, b, f, minimize):
