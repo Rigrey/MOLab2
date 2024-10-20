@@ -9,5 +9,6 @@ def main():
     dual_c, dual_A, dual_b, dual_min = convert_to_dual_problem(c, A, b, minimize)
     print("Dual Answer:", execute_simplex(dual_c, dual_A, dual_b, f, dual_min))
 
+
 if __name__ == '__main__':
     main()
