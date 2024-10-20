@@ -6,10 +6,10 @@ def init_headers(c, A, b):
     num_rows = len(b)
     global columns
     global rows
-    columns = ['b'] + [f'x{i + 1}' for i in range(num_columns)]
+    columns = ['b'] + [f'y{i + 1}' for i in range(num_columns)]
     rows = []
     for i in range(num_rows):
-        temp_row = [f'x{i + num_columns + 1}']
+        temp_row = [f'y{i + num_columns + 1}']
         rows.append(temp_row)
     rows.append('F')
 
