@@ -1,4 +1,5 @@
-from simp_solv import execute_simplex, convert_to_dual_problem
+from simp_solv import execute_simplex
+from dual_solv import convert_to_dual_problem
 
 def main():
     c = [7, 7, 6]
